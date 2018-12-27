@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/srast3/spring-kafka-microservice.git/
+          uri: https://github.com/AlbertoBravo/TPC-NETFLIXOSS.git/
           search-paths:
             - "EmailServiceConfigProperties/{application}/{profile}"
 #eureka:
