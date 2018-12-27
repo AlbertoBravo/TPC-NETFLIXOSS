@@ -14,8 +14,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: <username>
-    password: <password>
+    username: proyectotpcnetflix@gmail.com
+    password: proyectotpc60
     properties.mail.smtp:
       auth: true
       starttls.enable: true
