@@ -7,7 +7,7 @@ spring:
     active: dev  
   cloud:
     config:
-      hostname: config-server
+      hostname: localhost
       port: 8888
       uri: http://${spring.cloud.config.hostname}:${spring.cloud.config.port}
       fail-fast: false    
