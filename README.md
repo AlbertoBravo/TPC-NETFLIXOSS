@@ -10,12 +10,13 @@ This is a repository for building a Spring Boot microservice using NetflixOSS an
 - Docker 
 
 ### Apache Kafka and Zookeeper with Docker
-- docker network create kafka-net
-- docker run -d --name zookeeper --network kafka-net zookeeper:latest
-- docker run -d --name kafka --network kafka-net --env ZOOKEEPER_IP=zookeeper ches/kafka
-- docker run --rm --network kafka-net ches/kafka \kafka-topics.sh --create --topic USER_CREATED_TOPIC --replication-factor 1 --partitions 1 --zookeeper zookeeper:2181
-- docker run --rm --interactive --network kafka-net ches/kafka \kafka-console-producer.sh --topic USER_CREATED_TOPIC --broker-list kafka:9092
-- docker run --rm --network kafka-net ches/kafka \kafka-console-consumer.sh --topic USER_CREATED_TOPIC --from-beginning --bootstrap-server kafka:9092
+- Run
+  - docker network create kafka-net
+  - docker run -d --name zookeeper --network kafka-net zookeeper:latest
+  - docker run -d --name kafka --network kafka-net --env ZOOKEEPER_IP=zookeeper ches/kafka
+  - docker run --rm --network kafka-net ches/kafka \kafka-topics.sh --create --topic USER_CREATED_TOPIC --replication-factor 1 --partitions 1 --zookeeper zookeeper:2181
+  - docker run --rm --interactive --network kafka-net ches/kafka \kafka-console-producer.sh --topic USER_CREATED_TOPIC --broker-list kafka:9092
+  - docker run --rm --network kafka-net ches/kafka \kafka-console-consumer.sh --topic USER_CREATED_TOPIC --from-beginning --bootstrap-server kafka:9092
 
 #### Service Registry (Eureka)
 - Build/Run
@@ -48,7 +49,8 @@ This is a repository for building a Spring Boot microservice using NetflixOSS an
   - java -jar target/EmailService-0.0.1-SNAPSHOT.jar
   
 ##### Apache Kafka and Zookeeper with Docker (Update)
-- docker run -d --name kafka --network kafka-net --publish 9092:9092 --publish 7203:7203 --env KAFKA_ADVERTISED_HOST_NAME=localhost --env ZOOKEEPER_IP=zookeeper ches/kafka
+- Run
+  - docker run -d --name kafka --network kafka-net --publish 9092:9092 --publish 7203:7203 --env KAFKA_ADVERTISED_HOST_NAME=localhost --env ZOOKEEPER_IP=zookeeper ches/kafka
 
   
 #### Test Microservice
