@@ -3,12 +3,19 @@
 # spring-kafka-microservice
 This is a repository for building a Spring Boot microservice using NetflixOSS and Apache Kafka. 
 
-Read the complete blog here - https://crunchytechbytz.wordpress.com/2018/02/09/microservice-with-apache-kafka-netflix-oss/
-
 #### Prerequisite
 - Java 1.8
 - Kafka
-- docker 
+- Zookeeper
+- Docker 
+
+### Apache Kafka and Zookeeper with Docker
+- docker network create kafka-net
+- docker run -d --name zookeeper --network kafka-net zookeeper:latest
+- docker run -d --name kafka --network kafka-net --env ZOOKEEPER_IP=zookeeper ches/kafka
+- docker run --rm --network kafka-net ches/kafka \kafka-topics.sh --create --topic USER_CREATED_TOPIC --replication-factor 1 --partitions 1 --zookeeper zookeeper:2181
+- docker run --rm --interactive --network kafka-net ches/kafka \kafka-console-producer.sh --topic USER_CREATED_TOPIC --broker-list kafka:9092
+- docker run --rm --network kafka-net ches/kafka \kafka-console-consumer.sh --topic USER_CREATED_TOPIC --from-beginning --bootstrap-server kafka:9092
 
 #### Service Registry (Eureka)
 - Build/Run
@@ -40,6 +47,10 @@ Read the complete blog here - https://crunchytechbytz.wordpress.com/2018/02/09/m
   - mvn clean install
   - java -jar target/EmailService-0.0.1-SNAPSHOT.jar
   
+##### Apache Kafka and Zookeeper with Docker (Update)
+- docker run -d --name kafka --network kafka-net --publish 9092:9092 --publish 7203:7203 --env KAFKA_ADVERTISED_HOST_NAME=localhost --env ZOOKEEPER_IP=zookeeper ches/kafka
+
+  
 #### Test Microservice
 Once each micro service is setup and started correctly, you can test the complete flow by
 1. Create a new user by calling url – POST http://localhost:8081/register
@@ -47,9 +58,3 @@ Once each micro service is setup and started correctly, you can test the complet
 3. You can also verify the user by calling – GET http://localhost:8081/member 
 4. Verify that registration success email was received at your email address
 
-#### Deploying micro service in docker container
-The same microservice can also be  deployed in docker containers and I have published a blog on same here -
-https://crunchytechbytz.wordpress.com/2018/02/25/deploy-a-spring-boot-microservice-with-netflix-oss-stack-in-docker-container/
-
-Simialry, if someone needs to refer to any help on installing Apache Kafka in docker container then they can refer here -
-https://crunchytechbytz.wordpress.com/2018/01/28/install-apache-kafka-in-docker-container/
